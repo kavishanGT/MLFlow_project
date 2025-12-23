@@ -19,4 +19,4 @@ logging.basicConfig(
     ]
 )
 
-logger = logging.getLogger("mlflow_project_logger")
+logger = logging.getLogger("Mlflow_projectLogger")
