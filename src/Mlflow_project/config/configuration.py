@@ -1,8 +1,27 @@
 import os
 from Mlflow_project.constants import *
-from Mlflow_project.utils.common import read_yaml, create_directories
-from Mlflow_project.entity.config_entity import (BaseModelConfig, DataIngestionConfig, TrainingConfig)
+#from Mlflow_project.utils.common import read_yaml, create_directories
+from Mlflow_project.entity.config_entity import (BaseModelConfig, DataIngestionConfig, TrainingConfig,EvaluationConfig)
 
+from pathlib import Path
+import sys, os
+
+# Ensure we're using the project root and add the absolute `src` path to sys.path
+project_root = Path.cwd()
+src_path = str(project_root / "src")
+print("CWD:", project_root)
+print("Adding to sys.path:", src_path)
+if src_path not in sys.path:
+    sys.path.insert(0, src_path)
+
+# Quick verification
+import pkgutil
+print("Mlflow_project present in src?", any(p.name == 'Mlflow_project' for p in pkgutil.iter_modules([src_path])))
+
+# Now import
+from Mlflow_project.constants import *
+from Mlflow_project.utils.common import read_yaml, create_directories, save_json
+print("Imported Mlflow_project successfully.")
 
 class ConfigurationManager:
     def __init__(
@@ -70,3 +89,14 @@ class ConfigurationManager:
         )
 
         return training_config
+    
+    def get_evaluation_config(self) -> EvaluationConfig:
+        eval_config = EvaluationConfig(
+            path_of_model="resources/model_trainer/trained_model.h5",
+            training_data="resources/data_ingestion/Brain_MRI_scan_images",
+            mlflow_uri="https://dagshub.com/kavishanGT/MLFlow_project.mlflow",
+            all_params=self.params,
+            params_image_size=self.params.IMAGE_SIZE,
+            params_batch_size=self.params.BATCH_SIZE
+        )
+        return eval_config

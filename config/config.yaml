@@ -3,7 +3,7 @@ artifacts_root: resources
 
 data_ingestion:
   root_dir: resources/data_ingestion
-  source_URL: https://drive.google.com/file/d/1-ocwrtBy9B8fZOQnCPIN50M7Oh3Rmr_v/view?usp=sharing
+  source_URL: https://drive.google.com/file/d/1Yau1yX3jjoduy5tAaDYmmK008-Dv-Qrk/view?usp=sharing
   local_data_file: resources/data_ingestion/data.zip
   unzip_dir: resources/data_ingestion
 
@@ -17,5 +17,7 @@ prepare_base_model:
 model_trainer:
   root_dir: resources/model_trainer
   trained_model_path: resources/model_trainer/trained_model.h5
+
+
 
 
